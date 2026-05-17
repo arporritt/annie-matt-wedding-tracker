@@ -1292,7 +1292,7 @@
     </div>
   </div>
   <h1 class="title">Annie &amp; <em>Matt</em></h1>
-  <p class="lede">Planning the wedding · Aug 29, 2026 · everything we need to nail before "I do".</p>
+  <p class="lede">Aug 29, 2026 · St. Andrew Catholic Church · Big Foot Country Club, Lake Geneva, WI</p>
 </header>
 
 <!-- ============ META ROW ============ -->
@@ -4613,92 +4613,98 @@ const WEEKS = [
 ];
 
 const SEED_TASKS = [
-  // ===== NOW (15 weeks out) =====
-  { week:'now', track:'rentback', label:'Confirm all major vendors booked', note:'', pills:['urgent'] },
-  { week:'now', track:'rentback', label:'Finalize photographer + videographer shot list discussion', note:'', pills:[] },
-  { week:'now', track:'admin', label:'Schedule dress fitting (4-6 weeks out)', note:'', pills:['deadline'] },
-  { week:'now', track:'admin', label:"Confirm groom + groomsmen attire ordered/altered", note:'', pills:[] },
-  { week:'now', track:'family', label:'Pull latest guest count from save-the-date responses', note:'', pills:[] },
-  { week:'now', track:'family', label:'Finalize invitation design + proof', note:'', pills:['urgent'] },
+  // ===== CONFIRMED VENDORS (already done) =====
+  { week:'now', track:'wi', label:'Book reception venue', note:'Big Foot Country Club · Paul Keith (Venue Manager) · (262) 275-3000 · paulkeith@bigfootcc.org', pills:[], done:true },
+  { week:'now', track:'chi', label:'Book ceremony church', note:"St. Andrew Catholic Church · Father John P. Fitzgibbons (Priest) · (415) 846-0311 · jfitzgibbons@jesuits.org", pills:[], done:true },
+  { week:'now', track:'rentback', label:'Book photographer', note:'Stephanie Koppa Photography · stephaniekoppa@gmail.com · stephaniekoppa.com · Contract signed, $750 deposit paid', pills:[], done:true },
+  { week:'now', track:'rentback', label:'Book videographer', note:'Jake Michalski · Delicate Films · (608) 385-5907 · jake@delicatefilms.com · Contract signed, 50% deposit paid', pills:[], done:true },
+  { week:'now', track:'rentback', label:'Book day-of wedding coordinator', note:'Becky Dreyer · Something Blue Lake Geneva · (262) 745-1677', pills:[], done:true },
+  { week:'now', track:'wi', label:'Book table rentals', note:'April James · Parker Drive · 815-353-7862 · info@parkerdriveeventco.com · Contract signed, 50% deposit paid', pills:[], done:true },
+  { week:'now', track:'logistics', label:'Book rehearsal cocktail cruise', note:'Clare Mulcahy Rudd · Lake Geneva Cruise Line · (262) 248-5644 · cm@glcl.net · Confirmed', pills:[], done:true },
+
+  // ===== STILL TO BOOK / EVALUATE =====
+  { week:'now', track:'rentback', label:'Choose & book band/DJ', note:'Evaluating: Bluewater Kings Band, Big Al Wetzel Band', pills:['urgent'] },
+  { week:'now', track:'family', label:'Confirm hotel room block', note:'Evaluating The Abbey Resort · (262) 275-9065 · vanbemmel@theabbeyresort.com', pills:['urgent'] },
+  { week:'now', track:'admin', label:'Choose & book bridal salon', note:'Evaluating: Ultimate Bride, Volle\u2019s Bridal', pills:['urgent'] },
+  { week:'now', track:'rentback', label:'Book florist for ceremony + reception', note:'Decor', pills:['urgent'] },
+  { week:'now', track:'family', label:'Order invitations + envelope addressing', note:'Need invitations vendor', pills:['urgent'] },
+  { week:'now', track:'logistics', label:'Book wedding party + guest transportation', note:'Shuttle to/from Lake Geneva venues', pills:[] },
+  { week:'now', track:'rentback', label:'Book sound & lighting (reception)', note:'Coordinate with Big Foot CC AV needs', pills:[] },
+  { week:'now', track:'admin', label:"Pick wedding rings", note:'', pills:[] },
 
   // ===== WEEK 1 (May 18-24) =====
-  { week:'w1', track:'family', label:'Order wedding invitations', note:'', pills:[] },
-  { week:'w1', track:'family', label:'Order envelope calligraphy or printing', note:'', pills:[] },
-  { week:'w1', track:'rentback', label:'Confirm florist proposal + final design', note:'', pills:[] },
-  { week:'w1', track:'wi', label:'Finalize reception menu with caterer', note:'', pills:[] },
-  { week:'w1', track:'wi', label:'Confirm bar package + signature cocktails', note:'', pills:[] },
-  { week:'w1', track:'chi', label:'Book officiant; confirm rehearsal time', note:'', pills:[] },
-  { week:'w1', track:'logistics', label:'Reserve hotel room block for guests', note:'', pills:[] },
-  { week:'w1', track:'logistics', label:'Book transportation (shuttle/limo)', note:'', pills:[] },
+  { week:'w1', track:'rentback', label:'Choose & book hair + makeup', note:'Evaluating: Alpenglow Artistry, Piccola Salon, Melody Sopa Artistry', pills:[] },
+  { week:'w1', track:'family', label:'Send Save the Dates (if not already done)', note:'', pills:[] },
+  { week:'w1', track:'wi', label:'Confirm reception menu + tasting date with Big Foot CC', note:'', pills:[] },
+  { week:'w1', track:'wi', label:'Decide bar package + signature cocktails', note:'', pills:[] },
+  { week:'w1', track:'family', label:'Finalize rehearsal dinner venue', note:'Pier 290 rejected; need alternative', pills:[] },
+  { week:'w1', track:'chi', label:'Meet with Father Fitzgibbons re: ceremony details', note:'', pills:[] },
 
   // ===== WEEK 2 (May 25-31) =====
-  { week:'w2', track:'family', label:'Mail invitations (12 weeks before wedding)', note:'', pills:['deadline'] },
+  { week:'w2', track:'family', label:'Mail invitations', note:'~12 weeks before wedding', pills:['deadline'] },
   { week:'w2', track:'admin', label:'First dress fitting', note:'', pills:[] },
-  { week:'w2', track:'admin', label:'Shop for wedding bands', note:'', pills:[] },
   { week:'w2', track:'rentback', label:'Hair + makeup trials', note:'', pills:[] },
   { week:'w2', track:'chi', label:'Begin writing personal vows', note:'', pills:[] },
 
   // ===== WEEK 3 (Jun 1-7) =====
-  { week:'w3', track:'wi', label:'Confirm cake design + flavor with baker', note:'', pills:[] },
-  { week:'w3', track:'rentback', label:'Finalize DJ/band playlist + do-not-play list', note:'', pills:[] },
-  { week:'w3', track:'family', label:'Set up wedding website RSVP page', note:'', pills:[] },
-  { week:'w3', track:'logistics', label:'Confirm rehearsal dinner venue + menu', note:'', pills:[] },
+  { week:'w3', track:'wi', label:'Confirm cake design + tasting', note:'', pills:[] },
+  { week:'w3', track:'rentback', label:'Finalize playlist + do-not-play list with band', note:'', pills:[] },
+  { week:'w3', track:'family', label:'Set up RSVP tracking', note:'', pills:[] },
   { week:'w3', track:'admin', label:'Buy wedding party gifts', note:'', pills:[] },
 
   // ===== WEEK 4 (Jun 8-14) =====
-  { week:'w4', track:'chi', label:'Apply for marriage license window check (WI = 6 days, 30 days valid)', note:'', pills:['legal'] },
+  { week:'w4', track:'chi', label:'Check marriage license requirements (WI = 6 days, valid 30 days)', note:'', pills:['legal'] },
   { week:'w4', track:'admin', label:'Second dress fitting', note:'', pills:[] },
-  { week:'w4', track:'wi', label:'Walk-through at reception venue with planner', note:'', pills:[] },
-  { week:'w4', track:'rentback', label:'Confirm florist final count + delivery time', note:'', pills:[] },
+  { week:'w4', track:'wi', label:'Walk-through at Big Foot Country Club with Becky + Paul', note:'', pills:[] },
+  { week:'w4', track:'rentback', label:'Confirm florist final design + delivery', note:'', pills:[] },
   { week:'w4', track:'family', label:'Track RSVPs; follow up on missing ones', note:'', pills:[] },
 
   // ===== WEEK 5 (Jun 15-21) =====
-  { week:'w5', track:'rentback', label:'Engagement photo session (if not done)', note:'', pills:[] },
+  { week:'w5', track:'rentback', label:'Engagement photo session with Stephanie', note:'If not yet done', pills:[] },
   { week:'w5', track:'admin', label:'Pick up wedding bands', note:'', pills:[] },
   { week:'w5', track:'logistics', label:'Confirm honeymoon flights + hotel', note:'', pills:[] },
-  { week:'w5', track:'family', label:'Plan welcome bags for out-of-town guests', note:'', pills:[] },
-  { week:'w5', track:'chi', label:'Choose ceremony readings; assign readers', note:'', pills:[] },
+  { week:'w5', track:'family', label:'Plan welcome bags for out-of-town guests', note:'Drop at The Abbey Resort', pills:[] },
+  { week:'w5', track:'chi', label:'Choose ceremony readings + assign readers', note:'', pills:[] },
 
   // ===== WEEK 6 (Jun 22-28) =====
-  { week:'w6', track:'family', label:'RSVP deadline — chase stragglers', note:'', pills:['deadline'] },
-  { week:'w6', track:'wi', label:'Send seating chart draft to venue', note:'', pills:[] },
-  { week:'w6', track:'rentback', label:'Confirm photographer day-of timeline', note:'', pills:[] },
+  { week:'w6', track:'family', label:'RSVP deadline \u2014 chase stragglers', note:'', pills:['deadline'] },
+  { week:'w6', track:'wi', label:'Send seating chart draft to Becky', note:'', pills:[] },
+  { week:'w6', track:'rentback', label:'Confirm photographer + videographer day-of timeline', note:'Stephanie + Jake', pills:[] },
   { week:'w6', track:'admin', label:'Third dress fitting', note:'', pills:[] },
-  { week:'w6', track:'logistics', label:'Order or print welcome cards / programs', note:'', pills:[] },
+  { week:'w6', track:'logistics', label:'Order or print programs + place cards', note:'', pills:[] },
 
   // ===== WEEK 7 (Jun 29 - Jul 5) =====
-  { week:'w7', track:'wi', label:'Submit final guest count to caterer', note:'', pills:['deadline'] },
-  { week:'w7', track:'wi', label:'Submit final headcount to venue', note:'', pills:[] },
-  { week:'w7', track:'rentback', label:'Pay final balances to vendors', note:'', pills:['financial'] },
+  { week:'w7', track:'wi', label:'Submit final guest count to caterer / Big Foot CC', note:'', pills:['deadline'] },
+  { week:'w7', track:'rentback', label:'Pay final balances to all vendors', note:'', pills:['financial'] },
   { week:'w7', track:'family', label:'Build final seating chart', note:'', pills:[] },
   { week:'w7', track:'logistics', label:'Confirm transportation pickup times', note:'', pills:[] },
 
   // ===== WEEK 8 (Jul 6-12) =====
   { week:'w8', track:'admin', label:'Suit/tux pickups + final alterations', note:'', pills:[] },
-  { week:'w8', track:'chi', label:'Finalize ceremony order + processional', note:'', pills:[] },
+  { week:'w8', track:'chi', label:'Finalize ceremony order + processional with Father Fitzgibbons', note:'', pills:[] },
   { week:'w8', track:'family', label:'Print escort cards / place cards', note:'', pills:[] },
   { week:'w8', track:'logistics', label:'Pack welcome bags', note:'', pills:[] },
 
   // ===== WEEK 9 (Jul 13-19) =====
-  { week:'w9', track:'rentback', label:'Final meeting with day-of coordinator', note:'', pills:[] },
-  { week:'w9', track:'family', label:'Send rehearsal dinner invitations', note:'', pills:[] },
+  { week:'w9', track:'rentback', label:'Final meeting with Becky (day-of coordinator)', note:'', pills:[] },
+  { week:'w9', track:'family', label:'Send rehearsal dinner + cocktail cruise invitations', note:'', pills:[] },
   { week:'w9', track:'wi', label:'Confirm reception timeline minute-by-minute', note:'', pills:[] },
   { week:'w9', track:'chi', label:'Practice vows aloud', note:'', pills:[] },
 
   // ===== WEEK 10 (Jul 20-26) =====
-  { week:'w10', track:'chi', label:'Apply for marriage license (this week!)', note:'', pills:['legal','urgent'] },
+  { week:'w10', track:'chi', label:'Apply for marriage license (this week)', note:'WI: valid 30 days', pills:['legal','urgent'] },
   { week:'w10', track:'admin', label:'Final dress fitting + pickup', note:'', pills:[] },
-  { week:'w10', track:'family', label:'Confirm welcome event headcount', note:'', pills:[] },
+  { week:'w10', track:'family', label:'Confirm cocktail cruise headcount', note:'', pills:[] },
   { week:'w10', track:'logistics', label:'Pack overnight bag for wedding night', note:'', pills:[] },
 
   // ===== WEEK 11 (Jul 27 - Aug 2) =====
-  { week:'w11', track:'rentback', label:'Confirm florist delivery address + time', note:'', pills:[] },
-  { week:'w11', track:'logistics', label:'Drop off welcome bags at hotel', note:'', pills:[] },
+  { week:'w11', track:'rentback', label:'Confirm florist delivery address + time (Big Foot CC + St. Andrew)', note:'', pills:[] },
+  { week:'w11', track:'logistics', label:'Drop off welcome bags at The Abbey', note:'', pills:[] },
   { week:'w11', track:'wi', label:'Print final seating chart for venue', note:'', pills:[] },
   { week:'w11', track:'family', label:'Confirm rehearsal attendees + dinner count', note:'', pills:[] },
 
   // ===== WEEK 12 (Aug 3-9) =====
-  { week:'w12', track:'logistics', label:'Confirm vendor arrival times with coordinator', note:'', pills:[] },
+  { week:'w12', track:'logistics', label:'Confirm vendor arrival times with Becky', note:'', pills:[] },
   { week:'w12', track:'admin', label:'Beauty: brows, nails, spray tan if doing', note:'', pills:[] },
   { week:'w12', track:'family', label:'Confirm guest transportation logistics', note:'', pills:[] },
   { week:'w12', track:'money', label:'Prepare vendor tip envelopes', note:'', pills:['financial'] },
@@ -4710,16 +4716,16 @@ const SEED_TASKS = [
   { week:'w13', track:'chi', label:'Memorize vows; print backup copies', note:'', pills:[] },
 
   // ===== WEEK 14 (Aug 17-23) =====
-  { week:'w14', track:'family', label:'Final guest count to coordinator', note:'', pills:['deadline'] },
-  { week:'w14', track:'wi', label:'Confirm all bar + catering details', note:'', pills:[] },
+  { week:'w14', track:'family', label:'Final guest count to Becky', note:'', pills:['deadline'] },
+  { week:'w14', track:'wi', label:'Confirm all bar + catering details with Big Foot CC', note:'', pills:[] },
   { week:'w14', track:'logistics', label:'Drop-off rehearsal items at venue', note:'', pills:[] },
   { week:'w14', track:'admin', label:'Manicure + last-minute beauty', note:'', pills:[] },
 
-  // ===== WEEK 15 (Aug 24-30) — WEDDING WEEK =====
-  { week:'w15', track:'family', label:'Welcome event (Friday)', note:'', pills:[] },
-  { week:'w15', track:'logistics', label:'Rehearsal — Aug 28', note:'', pills:['deadline'] },
+  // ===== WEEK 15 (Aug 24-30) \u2014 WEDDING WEEK =====
+  { week:'w15', track:'family', label:'Welcome event / cocktail cruise (Thu Aug 27)', note:'Lake Geneva Cruise Line w/ Clare', pills:[] },
+  { week:'w15', track:'logistics', label:'Rehearsal \u2014 Aug 28', note:'St. Andrew Catholic Church', pills:['deadline'] },
   { week:'w15', track:'family', label:'Rehearsal dinner', note:'', pills:[] },
-  { week:'w15', track:'chi', label:'WEDDING DAY — Aug 29', note:'', pills:['urgent'] },
+  { week:'w15', track:'chi', label:'WEDDING DAY \u2014 Aug 29', note:'St. Andrew Catholic Church \u2192 Big Foot Country Club', pills:['urgent'] },
   { week:'w15', track:'logistics', label:'Post-wedding brunch (Sunday)', note:'', pills:[] },
   { week:'w15', track:'logistics', label:'Return tux/suit rentals', note:'', pills:[] },
   { week:'w15', track:'money', label:'Settle final balances + tips', note:'', pills:['financial'] },
@@ -4756,7 +4762,7 @@ function seedState() {
     note: t.note || '',
     pills: t.pills || [],
     owner: '',
-    done: !!oldDone[hashLabel(t.label)]
+    done: t.done === true ? true : !!oldDone[hashLabel(t.label)]
   }));
 
   return {
