@@ -2,7 +2,7 @@
 <!-- saved from url=(0077)file:///Users/alyssa.r.porritt/Downloads/Chicago_to_Wisconsin_Workplan_5.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -595,10 +595,29 @@
     .guests-controls, .vendors-controls, .tables-controls { padding:10px 12px; gap:6px; }
     .guests-controls input, .guests-controls select,
     .vendors-controls input, .vendors-controls select { font-size:12px; padding:6px 8px; flex:1 1 calc(50% - 4px); }
+    .guests-table, .vendors-table { table-layout: fixed; width: 100%; }
     .guests-table th, .vendors-table th,
-    .guests-table td, .vendors-table td { padding:6px 8px; font-size:11.5px; }
+    .guests-table td, .vendors-table td { padding:5px 6px; font-size:11px; word-break: break-word; }
+    /* Hide less critical columns on mobile to keep table fitting viewport */
+    .guests-table th:nth-child(3), .guests-table td:nth-child(3),  /* Category */
+    .guests-table th:nth-child(4), .guests-table td:nth-child(4),  /* Role */
+    .guests-table th:nth-child(7), .guests-table td:nth-child(7) { /* Dietary */
+      display: none;
+    }
+    .vendors-table th:nth-child(2), .vendors-table td:nth-child(2),   /* Role */
+    .vendors-table th:nth-child(4), .vendors-table td:nth-child(4),   /* Category */
+    .vendors-table th:nth-child(6), .vendors-table td:nth-child(6),   /* Phone */
+    .vendors-table th:nth-child(7), .vendors-table td:nth-child(7),   /* Email */
+    .vendors-table th:nth-child(8), .vendors-table td:nth-child(8),   /* Website */
+    .vendors-table th:nth-child(9), .vendors-table td:nth-child(9) {  /* Notes */
+      display: none;
+    }
     .tables-grid { grid-template-columns:1fr; }
+    .guest-chip { font-size: 11px; }
+    .guest-chip .gc-name { max-width: 160px; }
+    .unassigned-list .guest-chip select { font-size: 10px; max-width: 90px; }
     #tab-guests .container, #tab-tables .container, #tab-vendors .container { padding:12px 8px !important; }
+    .guests-wrap, .vendors-wrap { max-width: 100%; }
   }
 
   /* ============ BUDGET ============ */
@@ -4960,7 +4979,7 @@ function persist() {
 // CLOUD SYNC (Google Apps Script + Google Sheet)
 // ============================================================
 const APP_PASSWORD = 'annieandmatt';
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxVpeEbd3ljlrzGLWhoAugMq8dikiQq8PGZIhlmmPWZD_92B-coABYAuC7gc-v-QrKJ/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPsVpDm8MFLjHFRt6E-XA9y_-edpGATpxg3Vhna2bahrhkeVg5gO-kdn7sLjOm0wmi/exec';
 let cloudReady = false;
 let saveTimer = null;
 let lastSyncedJSON = null;
