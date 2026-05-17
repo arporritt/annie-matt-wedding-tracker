@@ -50,7 +50,7 @@
   /* ============ STICKY TOP ============ */
   .top-bar {
     position: sticky; top: 0; z-index: 60;
-    background: rgba(238,243,246,0.92);
+    background: rgba(248,241,237,0.92);
     backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--rule);
   }
@@ -243,7 +243,7 @@
   /* ============ TABS ============ */
   .tab-bar {
     position: sticky; top: 70px; z-index: 50;
-    background: rgba(238,243,246,0.92);
+    background: rgba(248,241,237,0.92);
     backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--rule);
     margin-top: 24px;
@@ -517,8 +517,8 @@
     padding: 24px 28px;
     margin-bottom: 28px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
   }
   .budget-sum-cell { border-right: 1px solid var(--rule-soft); padding-right: 20px; }
   .budget-sum-cell:last-child { border-right: none; }
@@ -5818,15 +5818,24 @@ function renderBudget() {
   const totalEst = items.reduce((s, i) => s + (Number(i.estimated) || 0), 0);
   const totalActual = items.reduce((s, i) => s + (Number(i.actual) || 0), 0);
   const totalPaid = items.filter(i => i.paid).reduce((s, i) => s + (Number(i.actual) || Number(i.estimated) || 0), 0);
-  const delta = totalEst - totalActual;
-  const deltaCls = delta >= 0 ? 'delta-pos' : 'delta-neg';
-  const deltaPrefix = delta >= 0 ? 'under by ' : 'over by ';
+  const totalLow = Math.round(totalEst * 0.9);
+  const totalHigh = Math.round(totalEst * 1.1);
 
   document.getElementById('budget-summary').innerHTML = `
+    <div class="budget-sum-cell">
+      <div class="budget-sum-label">Low estimate</div>
+      <div class="budget-sum-value">${fmtMoney(totalLow)}</div>
+      <div class="budget-sum-sub">−10% of estimated</div>
+    </div>
     <div class="budget-sum-cell">
       <div class="budget-sum-label">Estimated total</div>
       <div class="budget-sum-value">${fmtMoney(totalEst)}</div>
       <div class="budget-sum-sub">${items.length} line items</div>
+    </div>
+    <div class="budget-sum-cell">
+      <div class="budget-sum-label">High estimate</div>
+      <div class="budget-sum-value">${fmtMoney(totalHigh)}</div>
+      <div class="budget-sum-sub">+10% of estimated</div>
     </div>
     <div class="budget-sum-cell">
       <div class="budget-sum-label">Actual total</div>
@@ -5837,11 +5846,6 @@ function renderBudget() {
       <div class="budget-sum-label">Paid so far</div>
       <div class="budget-sum-value">${fmtMoney(totalPaid)}</div>
       <div class="budget-sum-sub">${items.filter(i => i.paid).length} of ${items.length} paid</div>
-    </div>
-    <div class="budget-sum-cell">
-      <div class="budget-sum-label">Est. vs Actual</div>
-      <div class="budget-sum-value ${deltaCls}">${deltaPrefix}${fmtMoney(Math.abs(delta))}</div>
-      <div class="budget-sum-sub">${totalActual === 0 ? 'no actuals yet' : 'running variance'}</div>
     </div>
   `;
 
