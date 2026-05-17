@@ -601,6 +601,16 @@
     cursor:pointer; transition: background 0.12s, border-color 0.12s;
   }
   .wn-btn:hover { background: var(--clay); color: white; border-color: var(--clay); }
+  .filter-toggle {
+    background: var(--bg-card); color: var(--ink-soft);
+    border: 1px solid var(--rule); border-radius: 100px;
+    padding: 7px 14px;
+    font-family:'Manrope',sans-serif; font-size:12px; font-weight:600;
+    cursor:pointer; transition: all 0.12s; white-space: nowrap;
+  }
+  .filter-toggle:hover { border-color: var(--clay); color: var(--clay); }
+  .filter-toggle.active { background: var(--clay); color: white; border-color: var(--clay); }
+  .week.hidden-empty, .week.hidden-past { display: none !important; }
   @media (max-width:600px) { .wn-btn { padding: 6px 10px; font-size: 11px; } }
   .page-search { width:100%; padding:10px 14px; border:1px solid var(--rule); border-radius:8px; background:var(--bg-card); font-family:'Manrope',sans-serif; font-size:14px; color:var(--ink); }
   .page-search:focus { outline:none; border-color:var(--clay); box-shadow:0 0 0 2px rgba(184,58,58,0.12); }
@@ -1584,7 +1594,11 @@
 
 <!-- ============ WEEK VIEW ============ -->
 <div class="tab-content active" id="tab-weeks">
-  <div class="page-search-wrap"><input type="search" id="weeks-search" class="page-search" placeholder="Search tasks…"></div>
+  <div class="page-search-wrap">
+    <input type="search" id="weeks-search" class="page-search" placeholder="Search tasks…">
+    <button id="toggle-empty" class="filter-toggle" onclick="toggleFilter('empty')">Hide empty weeks</button>
+    <button id="toggle-past" class="filter-toggle" onclick="toggleFilter('past')">Hide past weeks</button>
+  </div>
   <main id="weeks-container"><div class="initial-loading">Loading…</div></main>
 </div>
 
@@ -2188,6 +2202,7 @@ function generateHeadline(weekTasks, fallback) {
 function renderWeeks() {
   const c = document.getElementById('weeks-container');
   c.innerHTML = '';
+  setTimeout(applyWeekFilters, 0);
   WEEKS.forEach(w => {
     const weekTasks = state.tasks.filter(t => t.week === w.id);
     const done = weekTasks.filter(t => t.done).length;
@@ -3337,6 +3352,31 @@ function scrollWeek(direction) {
     const rect = target.getBoundingClientRect();
     window.scrollTo({ top: window.scrollY + rect.top - topOffset, behavior: 'smooth' });
   }, 60);
+}
+
+function applyWeekFilters() {
+  const hideEmpty = localStorage.getItem('mt-hide-empty') === '1';
+  const hidePast = localStorage.getItem('mt-hide-past') === '1';
+  const today = todayDate(); today.setHours(0,0,0,0);
+  WEEKS.forEach(w => {
+    const sec = document.getElementById(w.id);
+    if (!sec) return;
+    const isEmpty = state.tasks.filter(t => t.week === w.id).length === 0;
+    const isPast = new Date(w.end + 'T23:59:59') < today;
+    sec.classList.toggle('hidden-empty', hideEmpty && isEmpty);
+    sec.classList.toggle('hidden-past', hidePast && isPast);
+  });
+  const eb = document.getElementById('toggle-empty');
+  const pb = document.getElementById('toggle-past');
+  if (eb) eb.classList.toggle('active', hideEmpty);
+  if (pb) pb.classList.toggle('active', hidePast);
+}
+
+function toggleFilter(which) {
+  const key = which === 'empty' ? 'mt-hide-empty' : 'mt-hide-past';
+  const cur = localStorage.getItem(key) === '1';
+  localStorage.setItem(key, cur ? '0' : '1');
+  applyWeekFilters();
 }
 
 function jumpToToday() {
