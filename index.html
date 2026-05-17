@@ -138,14 +138,7 @@
   .meta-countdown.imminent { color: var(--behind); font-weight: 600; }
 
   /* ============ GANTT STRIP ============ */
-  .gantt-wrap {
-    max-width: 1240px; margin: 24px auto 0; padding: 0 40px 8px;
-    position: sticky;
-    top: 116px;
-    z-index: 45;
-    background: var(--bg);
-  }
-  @media (max-width: 600px) { .gantt-wrap { top: 96px; } }
+  .gantt-wrap { max-width: 1240px; margin: 24px auto 0; padding: 0 40px; }
   .gantt-eyebrow { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); font-weight: 600; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
   .gantt-eyebrow .today-tag { color: var(--clay); font-weight: 700; }
   .gantt {
@@ -1576,13 +1569,7 @@
 
 <!-- ============ WEEK VIEW ============ -->
 <div class="tab-content active" id="tab-weeks">
-  <div class="page-search-wrap">
-    <input type="search" id="weeks-search" class="page-search" placeholder="Search tasks…">
-    <div class="week-nav">
-      <button onclick="scrollWeek(-1)" class="wn-btn" title="Previous week">↑ Prev</button>
-      <button onclick="scrollWeek(1)" class="wn-btn" title="Next week">Next ↓</button>
-    </div>
-  </div>
+  <div class="page-search-wrap"><input type="search" id="weeks-search" class="page-search" placeholder="Search tasks…"></div>
   <main id="weeks-container"><div class="initial-loading">Loading…</div></main>
 </div>
 
