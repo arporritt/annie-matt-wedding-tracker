@@ -4473,7 +4473,7 @@
 <div class="tab-content" id="tab-list">
   <div class="list-controls">
     <input type="search" id="list-search" placeholder="Search tasks &amp; notes…">
-    <select id="filter-week"><option value="">All weeks</option><option value="now">May 15 → May 17</option><option value="w1">May 18 → May 24</option><option value="w2">May 25 → May 31</option><option value="w3">Jun 1 → Jun 7</option><option value="w4">Jun 8 → Jun 14</option><option value="w5">Jun 15 → Jun 21</option><option value="w6">Jun 22 → Jun 28</option><option value="w7">Jun 29 → Jul 5</option><option value="w8">Jul 6 → Jul 12</option><option value="w9">Jul 13 → Jul 19</option><option value="w10">Jul 20 → Jul 26</option><option value="w11">Jul 27 → Aug 2</option><option value="w12">Aug 3 → Aug 9</option><option value="w13">Aug 10 → Aug 16</option><option value="w14">Aug 17 → Aug 23</option><option value="w15">Aug 24 → Aug 30</option></select>
+    <select id="filter-week"><option value="">All weeks</option><option value="earlier">Pre-Mar 2026</option><option value="mar1">Mar 2 → Mar 8</option><option value="mar2">Mar 9 → Mar 15</option><option value="mar3">Mar 16 → Mar 22</option><option value="mar4">Mar 23 → Mar 29</option><option value="apr1">Mar 30 → Apr 5</option><option value="apr2">Apr 6 → Apr 12</option><option value="apr3">Apr 13 → Apr 19</option><option value="apr4">Apr 20 → Apr 26</option><option value="may1">Apr 27 → May 3</option><option value="may2">May 4 → May 10</option><option value="may3">May 11 → May 14</option><option value="now">May 15 → May 17</option><option value="w1">May 18 → May 24</option><option value="w2">May 25 → May 31</option><option value="w3">Jun 1 → Jun 7</option><option value="w4">Jun 8 → Jun 14</option><option value="w5">Jun 15 → Jun 21</option><option value="w6">Jun 22 → Jun 28</option><option value="w7">Jun 29 → Jul 5</option><option value="w8">Jul 6 → Jul 12</option><option value="w9">Jul 13 → Jul 19</option><option value="w10">Jul 20 → Jul 26</option><option value="w11">Jul 27 → Aug 2</option><option value="w12">Aug 3 → Aug 9</option><option value="w13">Aug 10 → Aug 16</option><option value="w14">Aug 17 → Aug 23</option><option value="w15">Aug 24 → Aug 30</option></select>
     <select id="filter-track">
       <option value="">All tracks</option>
       <option value="chi">Ceremony</option>
@@ -4596,22 +4596,34 @@
 // DATA: weeks + seed tasks
 // ============================================================
 const WEEKS = [
-  { id: 'now',    label: 'Now',     dateLabel: 'May 15 → May 17',  start: '2026-05-15', end: '2026-05-17', headline: 'Final big-vendor confirmations + invitation push.' },
-  { id: 'w1',     label: 'Week 1',  dateLabel: 'May 18 → May 24',  start: '2026-05-18', end: '2026-05-24', headline: 'Order invitations. Lock florist, caterer, bar.' },
-  { id: 'w2',     label: 'Week 2',  dateLabel: 'May 25 → May 31',  start: '2026-05-25', end: '2026-05-31', headline: 'Invitations out. First dress fitting. Hair/makeup trials.' },
-  { id: 'w3',     label: 'Week 3',  dateLabel: 'Jun 1 → Jun 7',    start: '2026-06-01', end: '2026-06-07', headline: 'Cake design, DJ playlist, party gifts.' },
-  { id: 'w4',     label: 'Week 4',  dateLabel: 'Jun 8 → Jun 14',   start: '2026-06-08', end: '2026-06-14', headline: 'Venue walk-through. Track RSVPs.' },
-  { id: 'w5',     label: 'Week 5',  dateLabel: 'Jun 15 → Jun 21',  start: '2026-06-15', end: '2026-06-21', headline: 'Honeymoon booked. Pick up rings. Welcome bags planned.' },
-  { id: 'w6',     label: 'Week 6',  dateLabel: 'Jun 22 → Jun 28',  start: '2026-06-22', end: '2026-06-28', headline: 'RSVPs in. Seating chart draft. Third fitting.' },
-  { id: 'w7',     label: 'Week 7',  dateLabel: 'Jun 29 → Jul 5',   start: '2026-06-29', end: '2026-07-05', headline: 'Final headcount. Pay vendor balances.' },
-  { id: 'w8',     label: 'Week 8',  dateLabel: 'Jul 6 → Jul 12',   start: '2026-07-06', end: '2026-07-12', headline: 'Suit pickups. Ceremony order. Print place cards.' },
-  { id: 'w9',     label: 'Week 9',  dateLabel: 'Jul 13 → Jul 19',  start: '2026-07-13', end: '2026-07-19', headline: 'Day-of coordinator meeting. Practice vows.' },
-  { id: 'w10',    label: 'Week 10', dateLabel: 'Jul 20 → Jul 26',  start: '2026-07-20', end: '2026-07-26', headline: 'Marriage license. Final dress pickup.' },
-  { id: 'w11',    label: 'Week 11', dateLabel: 'Jul 27 → Aug 2',   start: '2026-07-27', end: '2026-08-02', headline: 'Welcome bags delivered. Confirm florist delivery.' },
-  { id: 'w12',    label: 'Week 12', dateLabel: 'Aug 3 → Aug 9',    start: '2026-08-03', end: '2026-08-09', headline: 'Vendor times confirmed. Beauty prep. Tip envelopes ready.' },
-  { id: 'w13',    label: 'Week 13', dateLabel: 'Aug 10 → Aug 16',  start: '2026-08-10', end: '2026-08-16', headline: 'Pick up rings. Final hair/makeup confirmation. Pack.' },
-  { id: 'w14',    label: 'Week 14', dateLabel: 'Aug 17 → Aug 23',  start: '2026-08-17', end: '2026-08-23', headline: 'Final guest count. Rehearsal drop-offs. Beauty week.' },
-  { id: 'w15',    label: 'Week 15', dateLabel: 'Aug 24 → Aug 30',  start: '2026-08-24', end: '2026-08-30', headline: 'Wedding week — welcome, rehearsal, WEDDING, brunch.' }
+  { id: 'earlier', label: 'Earlier', dateLabel: 'Pre-Mar 2026', start: '2025-01-01', end: '2026-03-01', headline: '' },
+  { id: 'mar1', label: 'Mar 2', dateLabel: 'Mar 2 → Mar 8', start: '2026-03-02', end: '2026-03-08', headline: '' },
+  { id: 'mar2', label: 'Mar 9', dateLabel: 'Mar 9 → Mar 15', start: '2026-03-09', end: '2026-03-15', headline: '' },
+  { id: 'mar3', label: 'Mar 16', dateLabel: 'Mar 16 → Mar 22', start: '2026-03-16', end: '2026-03-22', headline: '' },
+  { id: 'mar4', label: 'Mar 23', dateLabel: 'Mar 23 → Mar 29', start: '2026-03-23', end: '2026-03-29', headline: '' },
+  { id: 'apr1', label: 'Mar 30', dateLabel: 'Mar 30 → Apr 5', start: '2026-03-30', end: '2026-04-05', headline: '' },
+  { id: 'apr2', label: 'Apr 6', dateLabel: 'Apr 6 → Apr 12', start: '2026-04-06', end: '2026-04-12', headline: '' },
+  { id: 'apr3', label: 'Apr 13', dateLabel: 'Apr 13 → Apr 19', start: '2026-04-13', end: '2026-04-19', headline: '' },
+  { id: 'apr4', label: 'Apr 20', dateLabel: 'Apr 20 → Apr 26', start: '2026-04-20', end: '2026-04-26', headline: '' },
+  { id: 'may1', label: 'Apr 27', dateLabel: 'Apr 27 → May 3', start: '2026-04-27', end: '2026-05-03', headline: '' },
+  { id: 'may2', label: 'May 4', dateLabel: 'May 4 → May 10', start: '2026-05-04', end: '2026-05-10', headline: '' },
+  { id: 'may3', label: 'May 11', dateLabel: 'May 11 → May 14', start: '2026-05-11', end: '2026-05-14', headline: '' },
+  { id: 'now', label: 'Now', dateLabel: 'May 15 → May 17', start: '2026-05-15', end: '2026-05-17', headline: '' },
+  { id: 'w1', label: 'Week 1', dateLabel: 'May 18 → May 24', start: '2026-05-18', end: '2026-05-24', headline: '' },
+  { id: 'w2', label: 'Week 2', dateLabel: 'May 25 → May 31', start: '2026-05-25', end: '2026-05-31', headline: '' },
+  { id: 'w3', label: 'Week 3', dateLabel: 'Jun 1 → Jun 7', start: '2026-06-01', end: '2026-06-07', headline: '' },
+  { id: 'w4', label: 'Week 4', dateLabel: 'Jun 8 → Jun 14', start: '2026-06-08', end: '2026-06-14', headline: '' },
+  { id: 'w5', label: 'Week 5', dateLabel: 'Jun 15 → Jun 21', start: '2026-06-15', end: '2026-06-21', headline: '' },
+  { id: 'w6', label: 'Week 6', dateLabel: 'Jun 22 → Jun 28', start: '2026-06-22', end: '2026-06-28', headline: '' },
+  { id: 'w7', label: 'Week 7', dateLabel: 'Jun 29 → Jul 5', start: '2026-06-29', end: '2026-07-05', headline: '' },
+  { id: 'w8', label: 'Week 8', dateLabel: 'Jul 6 → Jul 12', start: '2026-07-06', end: '2026-07-12', headline: '' },
+  { id: 'w9', label: 'Week 9', dateLabel: 'Jul 13 → Jul 19', start: '2026-07-13', end: '2026-07-19', headline: '' },
+  { id: 'w10', label: 'Week 10', dateLabel: 'Jul 20 → Jul 26', start: '2026-07-20', end: '2026-07-26', headline: '' },
+  { id: 'w11', label: 'Week 11', dateLabel: 'Jul 27 → Aug 2', start: '2026-07-27', end: '2026-08-02', headline: '' },
+  { id: 'w12', label: 'Week 12', dateLabel: 'Aug 3 → Aug 9', start: '2026-08-03', end: '2026-08-09', headline: '' },
+  { id: 'w13', label: 'Week 13', dateLabel: 'Aug 10 → Aug 16', start: '2026-08-10', end: '2026-08-16', headline: '' },
+  { id: 'w14', label: 'Week 14', dateLabel: 'Aug 17 → Aug 23', start: '2026-08-17', end: '2026-08-23', headline: '' },
+  { id: 'w15', label: 'Week 15', dateLabel: 'Aug 24 → Aug 30', start: '2026-08-24', end: '2026-08-30', headline: '' }
 ];
 
 const SEED_TASKS = [
