@@ -207,7 +207,7 @@
   .gantt-cell.dark .gc-label { color: var(--bg-card); }
   .gantt-today {
     position: absolute;
-    top: 12px; bottom: 10px;
+    top: 0; bottom: 0;
     width: 2px;
     background: var(--clay);
     z-index: 10;
@@ -216,17 +216,17 @@
   .gantt-today::after {
     content: 'Today';
     position: absolute;
-    top: -16px;
+    top: 0;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(-100%);
     background: var(--clay);
     color: white;
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding: 1px 6px;
-    border-radius: 100px;
+    padding: 2px 8px;
+    border-radius: 4px 4px 0 0;
     white-space: nowrap;
   }
 
