@@ -2134,14 +2134,6 @@ async function initApp() {
     updateSyncStatus('saved');
   }
   setInterval(refreshFromCloud, 20000);
-  // On initial load, anchor scroll on the current week (Time-Machine style)
-  setTimeout(() => {
-    const cw = currentWeekId();
-    if (cw) {
-      const sec = document.getElementById(cw);
-      if (sec) sec.scrollIntoView({ behavior: 'auto', block: 'start' });
-    }
-  }, 250);
 }
 
 // ============================================================
@@ -3322,20 +3314,19 @@ function renderActive() {
 }
 
 function scrollWeek(direction) {
-  // Switch to week view if needed
   const wt = document.querySelector('.tab-btn[data-tab="weeks"]');
   if (wt && !wt.classList.contains('active')) wt.click();
   setTimeout(() => {
     const sections = [...document.querySelectorAll('#weeks-container .week')];
     if (!sections.length) return;
-    // Find topmost visible section
-    const topOffset = 200;
-    let currentIdx = 0;
-    for (let i = 0; i < sections.length; i++) {
-      if (sections[i].getBoundingClientRect().top <= topOffset + 5) currentIdx = i;
-    }
-    const newIdx = Math.max(0, Math.min(sections.length - 1, currentIdx + direction));
-    sections[newIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Account for sticky bars at top
+    const topOffset = 220;
+    let currentIdx = sections.findIndex(s => s.getBoundingClientRect().top > topOffset - 5);
+    if (currentIdx < 0) currentIdx = sections.length - 1;
+    const newIdx = Math.max(0, Math.min(sections.length - 1, currentIdx + (direction > 0 ? 0 : -1)));
+    const target = sections[direction > 0 ? Math.min(sections.length - 1, currentIdx) : Math.max(0, currentIdx - 2)];
+    const rect = target.getBoundingClientRect();
+    window.scrollTo({ top: window.scrollY + rect.top - topOffset, behavior: 'smooth' });
   }, 60);
 }
 
