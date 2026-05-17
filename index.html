@@ -5752,6 +5752,15 @@ function renderActive() {
   else if (active === 'budget') renderBudget();
 }
 
+function jumpToToday() {
+  document.querySelector('.tab-btn[data-tab="weeks"]').click();
+  setTimeout(() => {
+    const cw = currentWeekId() || 'now';
+    const el = document.getElementById(cw);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
 // ============================================================
 // BUDGET
 // ============================================================
