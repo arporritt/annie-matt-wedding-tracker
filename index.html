@@ -2194,19 +2194,26 @@ function renderWeeks() {
     const behind = weekTasks.filter(isBehind).length;
     const sec = document.createElement('section');
     sec.className = 'week';
+    if (weekTasks.length === 0) sec.classList.add('is-collapsed');
     sec.id = w.id;
     const behindLine = behind > 0 ? `<span class="behind-pill">${behind} behind</span>` : '';
     const eyebrow = w.dateLabel.replace('→', '<span class="arrow">→</span>');
     const dynHeadline = generateHeadline(weekTasks, w.headline);
+    const emptyHint = weekTasks.length === 0 ? '<span class="week-empty-hint">empty · click to expand</span>' : '';
     sec.innerHTML = `
-      <div class="week-header">
+      <div class="week-header" role="button" title="Click to collapse / expand">
         <div class="week-num">${w.label === 'Now' ? 'Now' : w.dateLabel.split(' \u2192 ')[0]}</div>
         <div class="week-eyebrow">${eyebrow}</div>
         <h2>${escapeHTML(dynHeadline)}</h2>
-        <div class="week-progress"><span class="num-done">${done}</span> of <span class="num-total">${weekTasks.length}</span>${behindLine}</div>
+        <div class="week-progress"><span class="num-done">${done}</span> of <span class="num-total">${weekTasks.length}</span>${behindLine}${emptyHint}</div>
+        <span class="week-caret">▾</span>
       </div>
       <div class="week-tasks" data-week="${w.id}"></div>
     `;
+    sec.querySelector('.week-header').addEventListener('click', (ev) => {
+      if (ev.target.closest('input,button,select,a')) return;
+      sec.classList.toggle('is-collapsed');
+    });
     const tasksBox = sec.querySelector('.week-tasks');
     weekTasks.forEach(t => tasksBox.appendChild(renderTaskRow(t)));
     const addBtn = document.createElement('button');
