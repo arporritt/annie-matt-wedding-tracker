@@ -158,7 +158,20 @@
     white-space: nowrap;
     border: 1px solid currentColor;
   }
-  .gantt-row { position: relative; display: flex; gap: 4px; height: 28px; align-items: stretch; }
+  .gantt-row { position: relative; display: flex; gap: 4px; height: 28px; align-items: stretch; margin-top: 18px; }
+  .gantt-cell .gc-date {
+    position: absolute;
+    top: -16px; left: 50%; transform: translateX(-50%);
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    font-weight: 600;
+    pointer-events: none;
+  }
+  @media (max-width: 600px) {
+    .gantt-cell .gc-date { font-size: 8px; top: -14px; }
+  }
   .gantt-cell {
     flex: 1; min-width: 0;
     border-radius: 3px;
@@ -5459,7 +5472,10 @@ function renderGantt() {
     else if (new Date(w.start + 'T00:00:00') > today) cell.classList.add('future');
     if (behind > 0) cell.classList.add('has-behind');
     if (w.id === cw) cell.style.outline = '2px solid var(--clay)';
+    const startD = new Date(w.start + 'T12:00:00');
+    const dateShort = (startD.getMonth()+1) + '/' + startD.getDate();
     cell.innerHTML = `
+      <div class="gc-date">${dateShort}</div>
       <div class="gc-fill" style="width:${pct}%"></div>
       <div class="gc-label">${w.label === 'Now' ? 'Now' : w.label === 'Beyond' ? 'Sep+' : w.label.replace('Week ','W')}</div>
     `;
