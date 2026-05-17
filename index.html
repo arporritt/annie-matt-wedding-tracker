@@ -508,6 +508,99 @@
   .task.drag-over-top { box-shadow: 0 -3px 0 0 var(--clay); }
   .task.drag-over-bottom { box-shadow: 0 3px 0 0 var(--clay); }
 
+  
+  /* ============ GUESTS / TABLES / VENDORS ============ */
+  .guests-summary, .tables-summary {
+    background: var(--bg-card); border: 1px solid var(--rule); border-radius: 14px;
+    box-shadow: var(--shadow); padding: 20px 26px; margin-bottom: 22px;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px;
+  }
+  .gs-cell { border-right: 1px solid var(--rule-soft); padding-right: 18px; }
+  .gs-cell:last-child { border-right: none; }
+  .gs-label { font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; margin-bottom:4px; }
+  .gs-value { font-family:'Fraunces',serif; font-size:26px; color:var(--ink); }
+  .gs-sub { font-size:11px; color:var(--ink-faint); margin-top:2px; font-style:italic; }
+  .guests-controls, .vendors-controls, .tables-controls {
+    display:flex; gap:10px; flex-wrap:wrap; padding: 14px 20px; background:var(--bg-card);
+    border:1px solid var(--rule); border-radius:10px; margin-bottom:16px; align-items:center;
+  }
+  .guests-controls input, .guests-controls select,
+  .vendors-controls input, .vendors-controls select {
+    padding:7px 10px; border:1px solid var(--rule); border-radius:6px;
+    background:white; font-family:'Manrope',sans-serif; font-size:13px; color:var(--ink);
+  }
+  .guests-controls input[type="search"], .vendors-controls input[type="search"] { flex:1; min-width:200px; }
+  .tc-tip { font-size:12px; color:var(--ink-faint); font-style:italic; }
+  .guests-wrap, .vendors-wrap { background:var(--bg-card); border:1px solid var(--rule); border-radius:10px; overflow-x:auto; box-shadow:var(--shadow); }
+  .guests-table, .vendors-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .guests-table th, .vendors-table th {
+    text-align:left; padding:10px 12px; background:rgba(184,58,58,0.06); color:var(--ink-soft);
+    font-size:10px; letter-spacing:0.14em; text-transform:uppercase; font-weight:600; border-bottom:1px solid var(--rule);
+  }
+  .guests-table td, .vendors-table td { padding:8px 12px; border-bottom:1px solid var(--rule-soft); vertical-align:middle; }
+  .guests-table tr:hover td, .vendors-table tr:hover td { background:rgba(212,132,123,0.06); }
+  .guests-table input, .guests-table select, .vendors-table input, .vendors-table select {
+    border:1px solid transparent; background:transparent; padding:4px 6px; border-radius:4px;
+    font-family:'Manrope',sans-serif; font-size:13px; color:var(--ink); width:100%; min-width:60px;
+  }
+  .guests-table input:hover, .guests-table select:hover,
+  .vendors-table input:hover, .vendors-table select:hover { border-color:var(--rule-soft); }
+  .guests-table input:focus, .guests-table select:focus,
+  .vendors-table input:focus, .vendors-table select:focus { outline:none; border-color:var(--clay); background:white; }
+  .rsvp-accepted { color:#3F6F4A; font-weight:600; }
+  .rsvp-regrets { color:var(--behind); font-weight:600; }
+  .side-annie { color:#8C3F3F; font-weight:600; }
+  .side-matt { color:#4A1A1A; font-weight:600; }
+  .row-del-btn { background:transparent; border:none; color:var(--ink-faint); font-size:16px; cursor:pointer; padding:2px 6px; border-radius:4px; }
+  .row-del-btn:hover { color:var(--behind); background:rgba(214,85,62,0.08); }
+
+  /* TABLES specifically */
+  .tables-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:14px; margin-bottom:24px; }
+  .table-card {
+    background:var(--bg-card); border:1px solid var(--rule); border-radius:12px;
+    padding:14px 16px; box-shadow:var(--shadow);
+  }
+  .table-card-head { display:flex; align-items:center; gap:8px; margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid var(--rule-soft); }
+  .table-card-name { font-family:'Fraunces',serif; font-size:17px; font-weight:500; color:var(--ink); flex:1; }
+  .table-card-name input { border:1px solid transparent; background:transparent; padding:2px 4px; border-radius:4px; font-family:inherit; font-size:inherit; color:inherit; width:100%; }
+  .table-card-name input:focus { outline:none; border-color:var(--clay); background:white; }
+  .table-card-meta { display:flex; gap:8px; font-size:11px; color:var(--ink-faint); align-items:center; }
+  .table-card-meta input { width:50px; font-size:11px; padding:2px 4px; border:1px solid var(--rule-soft); border-radius:4px; background:white; color:var(--ink); }
+  .table-card-meta select { font-size:11px; padding:2px 4px; border:1px solid var(--rule-soft); border-radius:4px; background:white; }
+  .t-count { background:var(--rule-soft); color:var(--ink-soft); font-size:11px; padding:2px 8px; border-radius:100px; font-weight:600; }
+  .t-count.over { background:var(--behind); color:white; }
+  .table-card-guests { display:flex; flex-direction:column; gap:4px; min-height:30px; }
+  .guest-chip {
+    display:flex; align-items:center; gap:6px;
+    padding:5px 8px; background:rgba(212,132,123,0.10); border:1px solid var(--rule);
+    border-radius:6px; font-size:12.5px; color:var(--ink);
+  }
+  .guest-chip .gc-name { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .guest-chip .gc-side { font-size:9.5px; padding:1px 5px; border-radius:100px; font-weight:600; }
+  .guest-chip.side-annie .gc-side { background:#F4DDD9; color:#8C3F3F; }
+  .guest-chip.side-matt .gc-side { background:#ECD2D2; color:#4A1A1A; }
+  .guest-chip-remove { background:transparent; border:none; cursor:pointer; color:var(--ink-faint); font-size:14px; padding:0 4px; }
+  .guest-chip-remove:hover { color:var(--behind); }
+  .table-card-del { background:transparent; border:none; color:var(--ink-faint); cursor:pointer; font-size:16px; padding:2px 6px; border-radius:4px; }
+  .table-card-del:hover { color:var(--behind); background:rgba(214,85,62,0.08); }
+  .unassigned-section { background:var(--bg-card); border:1px solid var(--rule); border-radius:12px; padding:18px 20px; box-shadow:var(--shadow); }
+  .unassigned-section h3 { font-family:'Fraunces',serif; font-size:18px; color:var(--ink); margin-bottom:10px; display:flex; align-items:center; gap:10px; }
+  .unassigned-list { display:flex; flex-wrap:wrap; gap:6px; }
+  .unassigned-list .guest-chip { flex:0 0 auto; }
+  .unassigned-list .guest-chip select { font-size:11px; padding:2px 4px; border:1px solid var(--rule-soft); border-radius:4px; background:white; color:var(--ink); max-width:120px; }
+
+  @media (max-width:600px) {
+    .guests-summary, .tables-summary { grid-template-columns: repeat(2, 1fr); padding:14px; gap:12px; }
+    .gs-value { font-size:20px; }
+    .guests-controls, .vendors-controls, .tables-controls { padding:10px 12px; gap:6px; }
+    .guests-controls input, .guests-controls select,
+    .vendors-controls input, .vendors-controls select { font-size:12px; padding:6px 8px; flex:1 1 calc(50% - 4px); }
+    .guests-table th, .vendors-table th,
+    .guests-table td, .vendors-table td { padding:6px 8px; font-size:11.5px; }
+    .tables-grid { grid-template-columns:1fr; }
+    #tab-guests .container, #tab-tables .container, #tab-vendors .container { padding:12px 8px !important; }
+  }
+
   /* ============ BUDGET ============ */
   .budget-summary {
     background: var(--bg-card);
@@ -1400,6 +1493,9 @@
     <button class="tab-btn active" data-tab="weeks">Week-by-week</button>
     <button class="tab-btn" data-tab="list">Task list</button>
     <button class="tab-btn" data-tab="budget">Budget</button>
+    <button class="tab-btn" data-tab="guests">Guests</button>
+    <button class="tab-btn" data-tab="tables">Tables</button>
+    <button class="tab-btn" data-tab="vendors">Vendors</button>
   </div>
 </div>
 
@@ -4583,6 +4679,66 @@
   </div>
 </div>
 
+<!-- ============ GUESTS TAB ============ -->
+<div class="tab-content" id="tab-guests">
+  <div class="container" style="max-width:1240px;margin:0 auto;padding:32px 40px;">
+    <div class="guests-summary" id="guests-summary"></div>
+    <div class="guests-controls">
+      <input type="search" id="guests-search" placeholder="Search guests…">
+      <select id="guests-filter-side"><option value="">All sides</option><option value="Annie">Annie</option><option value="Matt">Matt</option></select>
+      <select id="guests-filter-rsvp"><option value="">All RSVPs</option><option value="Accepted">Accepted</option><option value="Regrets">Regrets</option><option value="">Pending</option></select>
+      <select id="guests-filter-cat"><option value="">All categories</option></select>
+      <button class="add-btn" onclick="addGuest()">+ Add guest</button>
+    </div>
+    <div class="guests-wrap">
+      <table class="guests-table">
+        <thead><tr>
+          <th>Name</th><th>Side</th><th>Category</th><th>Role</th>
+          <th>RSVP</th><th>Plus 1</th><th>Dietary</th><th>Table</th><th></th>
+        </tr></thead>
+        <tbody id="guests-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TABLES TAB ============ -->
+<div class="tab-content" id="tab-tables">
+  <div class="container" style="max-width:1240px;margin:0 auto;padding:32px 40px;">
+    <div class="tables-summary" id="tables-summary"></div>
+    <div class="tables-controls">
+      <button class="add-btn" onclick="addTable()">+ Add table</button>
+      <span class="tc-tip">Click a guest in "Unassigned" then pick a table — or use the dropdown next to each name.</span>
+    </div>
+    <div class="tables-grid" id="tables-grid"></div>
+    <div class="unassigned-section">
+      <h3>Unassigned <span id="unassigned-count" class="t-count">0</span></h3>
+      <div id="unassigned-guests" class="unassigned-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ VENDORS TAB ============ -->
+<div class="tab-content" id="tab-vendors">
+  <div class="container" style="max-width:1240px;margin:0 auto;padding:32px 40px;">
+    <div class="vendors-controls">
+      <input type="search" id="vendors-search" placeholder="Search vendors…">
+      <select id="vendors-filter-status"><option value="">All statuses</option><option value="Confirmed">Confirmed</option><option value="Booked">Booked</option><option value="Paid">Paid</option><option value="Quoting">Quoting</option><option value="Not Started">Not Started</option><option value="Evaluating">Evaluating</option><option value="Rejected">Rejected</option></select>
+      <select id="vendors-filter-cat"><option value="">All categories</option></select>
+      <button class="add-btn" onclick="addVendor()">+ Add vendor</button>
+    </div>
+    <div class="vendors-wrap">
+      <table class="vendors-table">
+        <thead><tr>
+          <th>Name</th><th>Role</th><th>Company</th><th>Category</th>
+          <th>Status</th><th>Phone</th><th>Email</th><th>Website</th><th>Notes</th><th></th>
+        </tr></thead>
+        <tbody id="vendors-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 <!-- ============ FOOTER ============ -->
 <footer>
   <span id="last-saved">last save —</span>
@@ -5745,11 +5901,278 @@ document.addEventListener('keydown', e => {
 // ============================================================
 // TABS
 // ============================================================
+
+
+// ============================================================
+// GUESTS
+// ============================================================
+function ensureGuestsState() {
+  if (!Array.isArray(state.guests)) state.guests = [];
+  if (!Array.isArray(state.tables)) state.tables = [];
+  if (!Array.isArray(state.vendors)) state.vendors = [];
+}
+
+function newId(prefix) { return prefix + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+
+function addGuest() {
+  ensureGuestsState();
+  state.guests.push({ id: newId('g'), side: '', name: 'New guest', category: '', role: '', rsvp: '', diet: '', plus1: false, table: '', note: '', inviteWed: true, inviteReh: false });
+  persist(); renderGuests();
+}
+
+function deleteGuest(gid) {
+  if (!confirm('Delete this guest?')) return;
+  state.guests = state.guests.filter(g => g.id !== gid);
+  persist(); renderActive();
+}
+
+function tableNameById(tid) {
+  if (!tid) return '';
+  const t = (state.tables || []).find(x => x.id === tid);
+  return t ? t.name : '(unknown)';
+}
+
+function renderGuests() {
+  ensureGuestsState();
+  const all = state.guests;
+  const q = (document.getElementById('guests-search').value || '').toLowerCase().trim();
+  const fSide = document.getElementById('guests-filter-side').value;
+  const fRsvp = document.getElementById('guests-filter-rsvp').value;
+  const fCat = document.getElementById('guests-filter-cat').value;
+
+  // Refresh categories filter
+  const catSel = document.getElementById('guests-filter-cat');
+  const cats = [...new Set(all.map(g => g.category).filter(Boolean))].sort();
+  catSel.innerHTML = '<option value="">All categories</option>' + cats.map(c => `<option value="${escapeHTML(c)}"${c===fCat?' selected':''}>${escapeHTML(c)}</option>`).join('');
+
+  // Summary
+  const invited = all.filter(g => g.inviteWed !== false).length;
+  const accepted = all.filter(g => g.rsvp === 'Accepted').length;
+  const regrets = all.filter(g => g.rsvp === 'Regrets').length;
+  const pending = all.filter(g => !g.rsvp).length;
+  const plus1s = all.filter(g => g.plus1).length;
+  document.getElementById('guests-summary').innerHTML = `
+    <div class="gs-cell"><div class="gs-label">Invited</div><div class="gs-value">${invited}</div><div class="gs-sub">total guests</div></div>
+    <div class="gs-cell"><div class="gs-label">Accepted</div><div class="gs-value">${accepted}</div><div class="gs-sub">${invited?Math.round(accepted/invited*100):0}%</div></div>
+    <div class="gs-cell"><div class="gs-label">Regrets</div><div class="gs-value">${regrets}</div><div class="gs-sub">declined</div></div>
+    <div class="gs-cell"><div class="gs-label">Pending</div><div class="gs-value">${pending}</div><div class="gs-sub">no RSVP yet</div></div>
+    <div class="gs-cell"><div class="gs-label">Plus ones</div><div class="gs-value">${plus1s}</div><div class="gs-sub">added</div></div>
+  `;
+
+  // Filter
+  let rows = all.filter(g => {
+    if (fSide && g.side !== fSide) return false;
+    if (fRsvp === 'Accepted' && g.rsvp !== 'Accepted') return false;
+    if (fRsvp === 'Regrets' && g.rsvp !== 'Regrets') return false;
+    if (fCat && g.category !== fCat) return false;
+    if (q) {
+      const hay = (g.name + ' ' + g.category + ' ' + g.role).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const body = document.getElementById('guests-body');
+  body.innerHTML = '';
+  rows.forEach(g => {
+    const tr = document.createElement('tr');
+    const sideCls = g.side === 'Annie' ? 'side-annie' : g.side === 'Matt' ? 'side-matt' : '';
+    tr.innerHTML = `
+      <td><input type="text" class="g-name" value="${escapeHTML(g.name||'')}" placeholder="Name"></td>
+      <td><select class="g-side"><option value="">—</option><option value="Annie"${g.side==='Annie'?' selected':''}>Annie</option><option value="Matt"${g.side==='Matt'?' selected':''}>Matt</option></select></td>
+      <td><input type="text" class="g-cat" value="${escapeHTML(g.category||'')}"></td>
+      <td><input type="text" class="g-role" value="${escapeHTML(g.role||'')}"></td>
+      <td><select class="g-rsvp"><option value=""${!g.rsvp?' selected':''}>Pending</option><option value="Accepted"${g.rsvp==='Accepted'?' selected':''}>Accepted</option><option value="Regrets"${g.rsvp==='Regrets'?' selected':''}>Regrets</option></select></td>
+      <td style="text-align:center"><input type="checkbox" class="g-p1" ${g.plus1?'checked':''}></td>
+      <td><input type="text" class="g-diet" value="${escapeHTML(g.diet||'')}" placeholder="—"></td>
+      <td><span class="g-table-name" style="color:var(--ink-soft);font-size:12px">${escapeHTML(tableNameById(g.table)) || '<em style=\'color:var(--ink-faint)\'>unassigned</em>'}</span></td>
+      <td><button class="row-del-btn" onclick="deleteGuest('${g.id}')">×</button></td>
+    `;
+    if (g.rsvp === 'Accepted') tr.querySelector('.g-rsvp').classList.add('rsvp-accepted');
+    if (g.rsvp === 'Regrets') tr.querySelector('.g-rsvp').classList.add('rsvp-regrets');
+    if (sideCls) tr.querySelector('.g-side').classList.add(sideCls);
+    tr.querySelector('.g-name').addEventListener('change', e => { g.name = e.target.value.trim(); persist(); });
+    tr.querySelector('.g-side').addEventListener('change', e => { g.side = e.target.value; persist(); renderGuests(); });
+    tr.querySelector('.g-cat').addEventListener('change', e => { g.category = e.target.value.trim(); persist(); renderGuests(); });
+    tr.querySelector('.g-role').addEventListener('change', e => { g.role = e.target.value.trim(); persist(); });
+    tr.querySelector('.g-rsvp').addEventListener('change', e => { g.rsvp = e.target.value; persist(); renderGuests(); });
+    tr.querySelector('.g-p1').addEventListener('change', e => { g.plus1 = e.target.checked; persist(); renderGuests(); });
+    tr.querySelector('.g-diet').addEventListener('change', e => { g.diet = e.target.value.trim(); persist(); });
+    body.appendChild(tr);
+  });
+}
+
+// ============================================================
+// TABLES
+// ============================================================
+function addTable() {
+  ensureGuestsState();
+  const num = state.tables.length + 1;
+  state.tables.push({ id: newId('t'), name: 'Table ' + num, capacity: 10, shape: 'round' });
+  persist(); renderTables();
+}
+
+function deleteTable(tid) {
+  if (!confirm('Delete this table? Assigned guests will be unassigned.')) return;
+  state.tables = state.tables.filter(t => t.id !== tid);
+  state.guests.forEach(g => { if (g.table === tid) g.table = ''; });
+  persist(); renderTables();
+}
+
+function assignGuestToTable(gid, tid) {
+  const g = state.guests.find(x => x.id === gid);
+  if (g) { g.table = tid; persist(); renderTables(); }
+}
+
+function renderTables() {
+  ensureGuestsState();
+  const tables = state.tables;
+  const guests = state.guests;
+
+  const assigned = guests.filter(g => g.table);
+  const unassigned = guests.filter(g => !g.table);
+  const totalCap = tables.reduce((s,t) => s + (Number(t.capacity)||0), 0);
+
+  document.getElementById('tables-summary').innerHTML = `
+    <div class="gs-cell"><div class="gs-label">Tables</div><div class="gs-value">${tables.length}</div><div class="gs-sub">configured</div></div>
+    <div class="gs-cell"><div class="gs-label">Total capacity</div><div class="gs-value">${totalCap}</div><div class="gs-sub">seats</div></div>
+    <div class="gs-cell"><div class="gs-label">Assigned</div><div class="gs-value">${assigned.length}</div><div class="gs-sub">guests</div></div>
+    <div class="gs-cell"><div class="gs-label">Unassigned</div><div class="gs-value">${unassigned.length}</div><div class="gs-sub">to place</div></div>
+    <div class="gs-cell"><div class="gs-label">Avg per table</div><div class="gs-value">${tables.length?Math.round(assigned.length/tables.length*10)/10:0}</div><div class="gs-sub">guests/table</div></div>
+  `;
+
+  const grid = document.getElementById('tables-grid');
+  grid.innerHTML = '';
+  tables.forEach(t => {
+    const tableGuests = guests.filter(g => g.table === t.id);
+    const cap = Number(t.capacity) || 0;
+    const over = cap > 0 && tableGuests.length > cap;
+    const card = document.createElement('div');
+    card.className = 'table-card';
+    card.innerHTML = `
+      <div class="table-card-head">
+        <div class="table-card-name"><input type="text" class="t-name" value="${escapeHTML(t.name||'')}"></div>
+        <div class="table-card-meta">
+          <select class="t-shape">
+            <option value="round"${t.shape==='round'?' selected':''}>Round</option>
+            <option value="rect"${t.shape==='rect'?' selected':''}>Rect</option>
+            <option value="head"${t.shape==='head'?' selected':''}>Head</option>
+          </select>
+          <input type="number" class="t-cap" value="${cap}" min="0" placeholder="cap">
+          <span class="t-count${over?' over':''}">${tableGuests.length}${cap?'/'+cap:''}</span>
+          <button class="table-card-del" onclick="deleteTable('${t.id}')" title="Delete table">×</button>
+        </div>
+      </div>
+      <div class="table-card-guests"></div>
+    `;
+    const guestsBox = card.querySelector('.table-card-guests');
+    tableGuests.forEach(g => {
+      const chip = document.createElement('div');
+      chip.className = 'guest-chip side-' + (g.side ? g.side.toLowerCase() : '');
+      chip.innerHTML = `<span class="gc-name">${escapeHTML(g.name)}</span>${g.side?`<span class="gc-side">${escapeHTML(g.side)}</span>`:''}<button class="guest-chip-remove" title="Remove">×</button>`;
+      chip.querySelector('.guest-chip-remove').addEventListener('click', () => { g.table=''; persist(); renderTables(); });
+      guestsBox.appendChild(chip);
+    });
+    card.querySelector('.t-name').addEventListener('change', e => { t.name = e.target.value.trim(); persist(); renderTables(); });
+    card.querySelector('.t-shape').addEventListener('change', e => { t.shape = e.target.value; persist(); });
+    card.querySelector('.t-cap').addEventListener('change', e => { t.capacity = parseInt(e.target.value) || 0; persist(); renderTables(); });
+    grid.appendChild(card);
+  });
+
+  document.getElementById('unassigned-count').textContent = unassigned.length;
+  const ul = document.getElementById('unassigned-guests');
+  ul.innerHTML = '';
+  unassigned.forEach(g => {
+    const chip = document.createElement('div');
+    chip.className = 'guest-chip side-' + (g.side ? g.side.toLowerCase() : '');
+    const opts = tables.map(t => `<option value="${t.id}">${escapeHTML(t.name)}</option>`).join('');
+    chip.innerHTML = `<span class="gc-name">${escapeHTML(g.name)}</span>${g.side?`<span class="gc-side">${escapeHTML(g.side)}</span>`:''}<select><option value="">Assign…</option>${opts}</select>`;
+    chip.querySelector('select').addEventListener('change', e => {
+      if (e.target.value) assignGuestToTable(g.id, e.target.value);
+    });
+    ul.appendChild(chip);
+  });
+}
+
+// ============================================================
+// VENDORS
+// ============================================================
+function addVendor() {
+  ensureGuestsState();
+  state.vendors.push({ id: newId('v'), name: '', role: '', company: '', category: '', status: 'Not Started', phone: '', email: '', website: '', note: '' });
+  persist(); renderVendors();
+}
+
+function deleteVendor(vid) {
+  if (!confirm('Delete this vendor?')) return;
+  state.vendors = state.vendors.filter(v => v.id !== vid);
+  persist(); renderVendors();
+}
+
+function renderVendors() {
+  ensureGuestsState();
+  const all = state.vendors;
+  const q = (document.getElementById('vendors-search').value || '').toLowerCase().trim();
+  const fStatus = document.getElementById('vendors-filter-status').value;
+  const fCat = document.getElementById('vendors-filter-cat').value;
+  const catSel = document.getElementById('vendors-filter-cat');
+  const cats = [...new Set(all.map(v => v.category).filter(Boolean))].sort();
+  catSel.innerHTML = '<option value="">All categories</option>' + cats.map(c => `<option value="${escapeHTML(c)}"${c===fCat?' selected':''}>${escapeHTML(c)}</option>`).join('');
+
+  let rows = all.filter(v => {
+    if (fStatus && v.status !== fStatus) return false;
+    if (fCat && v.category !== fCat) return false;
+    if (q) {
+      const hay = (v.name + ' ' + v.company + ' ' + v.role).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const body = document.getElementById('vendors-body');
+  body.innerHTML = '';
+  rows.forEach(v => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input type="text" class="v-name" value="${escapeHTML(v.name||'')}"></td>
+      <td><input type="text" class="v-role" value="${escapeHTML(v.role||'')}"></td>
+      <td><input type="text" class="v-company" value="${escapeHTML(v.company||'')}"></td>
+      <td><input type="text" class="v-cat" value="${escapeHTML(v.category||'')}"></td>
+      <td><select class="v-status">
+        <option value="Not Started"${v.status==='Not Started'?' selected':''}>Not Started</option>
+        <option value="Evaluating"${v.status==='Evaluating'?' selected':''}>Evaluating</option>
+        <option value="Quoting"${v.status==='Quoting'?' selected':''}>Quoting</option>
+        <option value="Booked"${v.status==='Booked'?' selected':''}>Booked</option>
+        <option value="Paid"${v.status==='Paid'?' selected':''}>Paid</option>
+        <option value="Confirmed"${v.status==='Confirmed'?' selected':''}>Confirmed</option>
+        <option value="Rejected"${v.status==='Rejected'?' selected':''}>Rejected</option>
+      </select></td>
+      <td><input type="text" class="v-phone" value="${escapeHTML(v.phone||'')}"></td>
+      <td><input type="text" class="v-email" value="${escapeHTML(v.email||'')}"></td>
+      <td><input type="text" class="v-web" value="${escapeHTML(v.website||'')}"></td>
+      <td><input type="text" class="v-note" value="${escapeHTML(v.note||'')}"></td>
+      <td><button class="row-del-btn" onclick="deleteVendor('${v.id}')">×</button></td>
+    `;
+    ['name','role','company','cat','phone','email','web','note'].forEach(f => {
+      tr.querySelector('.v-'+f).addEventListener('change', e => {
+        v[f === 'cat' ? 'category' : f === 'web' ? 'website' : f] = e.target.value.trim();
+        persist();
+        if (f === 'cat') renderVendors();
+      });
+    });
+    tr.querySelector('.v-status').addEventListener('change', e => { v.status = e.target.value; persist(); });
+    body.appendChild(tr);
+  });
+}
+
 function renderActive() {
   const active = document.querySelector('.tab-btn.active').dataset.tab;
   if (active === 'weeks') renderWeeks();
   else if (active === 'list') renderList();
   else if (active === 'budget') renderBudget();
+  else if (active === 'guests') renderGuests();
+  else if (active === 'tables') renderTables();
+  else if (active === 'vendors') renderVendors();
 }
 
 function jumpToToday() {
@@ -6026,6 +6449,18 @@ function resetAll() {
 // ============================================================
 // INIT
 // ============================================================
+
+// Guest list controls
+['guests-search','guests-filter-side','guests-filter-rsvp','guests-filter-cat'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', () => renderGuests());
+});
+// Vendor controls
+['vendors-search','vendors-filter-status','vendors-filter-cat'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', () => renderVendors());
+});
+
 checkAuth();
 </script><datalist id="owner-list"></datalist>
 
