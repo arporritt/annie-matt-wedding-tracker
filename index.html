@@ -576,6 +576,13 @@
   .row-del-btn { background:transparent; border:none; color:var(--ink-faint); font-size:16px; cursor:pointer; padding:2px 6px; border-radius:4px; }
   .row-del-btn:hover { color:var(--behind); background:rgba(214,85,62,0.08); }
 
+  .page-search-wrap { max-width:1240px; margin:0 auto; padding: 16px 40px 0; }
+  .page-search { width:100%; padding:10px 14px; border:1px solid var(--rule); border-radius:8px; background:var(--bg-card); font-family:'Manrope',sans-serif; font-size:14px; color:var(--ink); }
+  .page-search:focus { outline:none; border-color:var(--clay); box-shadow:0 0 0 2px rgba(184,58,58,0.12); }
+  @media (max-width:600px) { .page-search-wrap { padding:10px 12px 0; } .page-search { font-size:13px; padding:8px 12px; } }
+  .task.hidden-by-search, .budget-line.hidden-by-search, .guest-chip.hidden-by-search { display:none; }
+  .budget-category.hidden-by-search { display:none; }
+  .week.hidden-by-search { display:none; }
   /* FLOOR PLAN */
   .floor-plan-wrap { margin-bottom: 24px; background:var(--bg-card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow); padding:16px 18px 18px; }
   .floor-plan-header { display:flex; align-items:baseline; gap:14px; margin-bottom:10px; flex-wrap:wrap; }
@@ -1552,6 +1559,7 @@
 
 <!-- ============ WEEK VIEW ============ -->
 <div class="tab-content active" id="tab-weeks">
+  <div class="page-search-wrap"><input type="search" id="weeks-search" class="page-search" placeholder="Search tasks…"></div>
   <main id="weeks-container"><div class="initial-loading">Loading…</div></main>
 </div>
 
@@ -1665,6 +1673,7 @@
 <div class="tab-content" id="tab-budget">
   <div class="container" style="max-width: 1240px; margin: 0 auto; padding: 32px 40px;">
     <div class="budget-summary" id="budget-summary"></div>
+    <div class="page-search-wrap"><input type="search" id="budget-search" class="page-search" placeholder="Search budget items…"></div>
     <div id="budget-categories"></div>
   </div>
 </div>
@@ -1696,6 +1705,7 @@
 <div class="tab-content" id="tab-tables">
   <div class="container" style="max-width:1240px;margin:0 auto;padding:32px 40px;">
     <div class="tables-summary" id="tables-summary"></div>
+    <div class="page-search-wrap"><input type="search" id="tables-search" class="page-search" placeholder="Search guest names…"></div>
     <div class="tables-controls">
       <button class="add-btn" onclick="addTable()">+ Add table</button>
       <span class="tc-tip">Click a guest in "Unassigned" then pick a table — or use the dropdown next to each name.</span>
@@ -3566,6 +3576,42 @@ function resetAll() {
   if (el) el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', () => renderVendors());
 });
 
+// Per-tab search filters
+function setupPageSearch() {
+  const ws = document.getElementById('weeks-search');
+  if (ws) ws.addEventListener('input', () => {
+    const q = ws.value.trim().toLowerCase();
+    document.querySelectorAll('#weeks-container .task').forEach(t => {
+      const hay = (t.textContent || '').toLowerCase();
+      t.classList.toggle('hidden-by-search', q && !hay.includes(q));
+    });
+    document.querySelectorAll('#weeks-container .week').forEach(w => {
+      const visible = w.querySelectorAll('.task:not(.hidden-by-search)').length;
+      w.classList.toggle('hidden-by-search', q && visible === 0);
+    });
+  });
+  const bs = document.getElementById('budget-search');
+  if (bs) bs.addEventListener('input', () => {
+    const q = bs.value.trim().toLowerCase();
+    document.querySelectorAll('#budget-categories .budget-line').forEach(l => {
+      const hay = ((l.querySelector('.label')||{}).value || '').toLowerCase();
+      l.classList.toggle('hidden-by-search', q && !hay.includes(q));
+    });
+    document.querySelectorAll('#budget-categories .budget-category').forEach(c => {
+      const visible = c.querySelectorAll('.budget-line:not(.hidden-by-search)').length;
+      c.classList.toggle('hidden-by-search', q && visible === 0);
+    });
+  });
+  const ts = document.getElementById('tables-search');
+  if (ts) ts.addEventListener('input', () => {
+    const q = ts.value.trim().toLowerCase();
+    document.querySelectorAll('.guest-chip').forEach(ch => {
+      const hay = (ch.textContent || '').toLowerCase();
+      ch.classList.toggle('hidden-by-search', q && !hay.includes(q));
+    });
+  });
+}
+setupPageSearch();
 checkAuth();
 </script><datalist id="owner-list"></datalist>
 
