@@ -554,6 +554,59 @@
   .row-del-btn { background:transparent; border:none; color:var(--ink-faint); font-size:16px; cursor:pointer; padding:2px 6px; border-radius:4px; }
   .row-del-btn:hover { color:var(--behind); background:rgba(214,85,62,0.08); }
 
+  /* FLOOR PLAN */
+  .floor-plan-wrap { margin-bottom: 24px; background:var(--bg-card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow); padding:16px 18px 18px; }
+  .floor-plan-header { display:flex; align-items:baseline; gap:14px; margin-bottom:10px; flex-wrap:wrap; }
+  .floor-plan-header h3 { font-family:'Fraunces',serif; font-size:18px; color:var(--ink); margin:0; }
+  .fp-hint { font-size:12px; color:var(--ink-faint); font-style:italic; }
+  .floor-plan {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    background: repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(212,132,123,0.06) 23px, rgba(212,132,123,0.06) 24px),
+                repeating-linear-gradient(90deg, transparent, transparent 23px, rgba(212,132,123,0.06) 23px, rgba(212,132,123,0.06) 24px),
+                #fffaf7;
+    border: 2px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    touch-action: none;
+  }
+  .fp-window {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(180deg, rgba(212,132,123,0.18), rgba(212,132,123,0.05));
+    border-bottom: 2px solid var(--clay-soft);
+    padding: 4px 24px;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay);
+    font-weight: 700;
+    border-radius: 0 0 6px 6px;
+  }
+  .fp-table {
+    position: absolute;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: var(--clay); color: white;
+    cursor: grab;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    transition: transform 0.05s, box-shadow 0.15s;
+    user-select: none;
+    font-family: 'Manrope', sans-serif;
+    z-index: 2;
+  }
+  .fp-table:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
+  .fp-table.dragging { cursor: grabbing; opacity: 0.8; z-index: 5; transform: scale(1.05); }
+  .fp-table.round { width: 72px; height: 72px; border-radius: 50%; }
+  .fp-table.rect { width: 88px; height: 56px; border-radius: 6px; }
+  .fp-table.head { width: 140px; height: 44px; border-radius: 6px; background: var(--plum); }
+  .fp-table .fpt-name { font-size: 11px; font-weight: 700; line-height: 1.1; text-align: center; padding: 0 6px; }
+  .fp-table .fpt-count { font-size: 9px; opacity: 0.85; margin-top: 2px; }
+  .fp-table.over { background: var(--behind); }
+  @media (max-width: 600px) {
+    .floor-plan { height: 380px; }
+    .fp-table.round { width: 56px; height: 56px; }
+    .fp-table.rect { width: 70px; height: 44px; }
+    .fp-table.head { width: 110px; height: 36px; }
+    .fp-table .fpt-name { font-size: 10px; }
+  }
+
   /* TABLES specifically */
   .tables-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:14px; margin-bottom:24px; }
   .table-card {
@@ -4729,6 +4782,15 @@
       <button class="add-btn" onclick="addTable()">+ Add table</button>
       <span class="tc-tip">Click a guest in "Unassigned" then pick a table — or use the dropdown next to each name.</span>
     </div>
+    <div class="floor-plan-wrap">
+      <div class="floor-plan-header">
+        <h3>Floor plan</h3>
+        <span class="fp-hint">Drag tables to arrange. Round = round table · Rect = rectangular · Head = head table.</span>
+      </div>
+      <div class="floor-plan" id="floor-plan">
+        <div class="fp-window">Window</div>
+      </div>
+    </div>
     <div class="tables-grid" id="tables-grid"></div>
     <div class="unassigned-section">
       <h3>Unassigned <span id="unassigned-count" class="t-count">0</span></h3>
@@ -6043,6 +6105,66 @@ function assignGuestToTable(gid, tid) {
   if (g) { g.table = tid; persist(); renderTables(); }
 }
 
+function renderFloorPlan() {
+  const fp = document.getElementById('floor-plan');
+  if (!fp) return;
+  // Remove existing fp-tables
+  fp.querySelectorAll('.fp-table').forEach(el => el.remove());
+  const fpRect = fp.getBoundingClientRect();
+  state.tables.forEach((t, i) => {
+    if (typeof t.fx !== 'number') t.fx = 10 + (i % 6) * 14;
+    if (typeof t.fy !== 'number') t.fy = 18 + Math.floor(i / 6) * 22;
+    const el = document.createElement('div');
+    const shape = t.shape || 'round';
+    el.className = 'fp-table ' + shape;
+    el.style.left = t.fx + '%';
+    el.style.top = t.fy + '%';
+    const count = state.guests.filter(g => g.table === t.id).length;
+    const cap = Number(t.capacity) || 0;
+    if (cap && count > cap) el.classList.add('over');
+    el.innerHTML = `<div class="fpt-name">${escapeHTML(t.name||'')}</div><div class="fpt-count">${count}${cap?'/'+cap:''}</div>`;
+    // Drag
+    let startX, startY, origLeft, origTop;
+    const onDown = e => {
+      e.preventDefault();
+      el.classList.add('dragging');
+      const p = e.touches ? e.touches[0] : e;
+      startX = p.clientX; startY = p.clientY;
+      const rect = fp.getBoundingClientRect();
+      origLeft = (parseFloat(el.style.left) / 100) * rect.width;
+      origTop = (parseFloat(el.style.top) / 100) * rect.height;
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+      document.addEventListener('touchmove', onMove, {passive:false});
+      document.addEventListener('touchend', onUp);
+    };
+    const onMove = e => {
+      e.preventDefault();
+      const p = e.touches ? e.touches[0] : e;
+      const dx = p.clientX - startX;
+      const dy = p.clientY - startY;
+      const rect = fp.getBoundingClientRect();
+      const newX = Math.max(0, Math.min(rect.width - el.offsetWidth, origLeft + dx));
+      const newY = Math.max(0, Math.min(rect.height - el.offsetHeight, origTop + dy));
+      el.style.left = (newX / rect.width * 100) + '%';
+      el.style.top = (newY / rect.height * 100) + '%';
+    };
+    const onUp = () => {
+      el.classList.remove('dragging');
+      t.fx = parseFloat(el.style.left);
+      t.fy = parseFloat(el.style.top);
+      persist();
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onUp);
+    };
+    el.addEventListener('mousedown', onDown);
+    el.addEventListener('touchstart', onDown, {passive:false});
+    fp.appendChild(el);
+  });
+}
+
 function renderTables() {
   ensureGuestsState();
   const tables = state.tables;
@@ -6098,6 +6220,7 @@ function renderTables() {
     grid.appendChild(card);
   });
 
+  renderFloorPlan();
   document.getElementById('unassigned-count').textContent = unassigned.length;
   const ul = document.getElementById('unassigned-guests');
   ul.innerHTML = '';
