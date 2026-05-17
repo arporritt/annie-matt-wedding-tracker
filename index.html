@@ -138,7 +138,14 @@
   .meta-countdown.imminent { color: var(--behind); font-weight: 600; }
 
   /* ============ GANTT STRIP ============ */
-  .gantt-wrap { max-width: 1240px; margin: 24px auto 0; padding: 0 40px; }
+  .gantt-wrap {
+    max-width: 1240px; margin: 24px auto 0; padding: 0 40px 8px;
+    position: sticky;
+    top: 116px;
+    z-index: 45;
+    background: var(--bg);
+  }
+  @media (max-width: 600px) { .gantt-wrap { top: 96px; } }
   .gantt-eyebrow { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); font-weight: 600; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
   .gantt-eyebrow .today-tag { color: var(--clay); font-weight: 700; }
   .gantt {
@@ -576,7 +583,17 @@
   .row-del-btn { background:transparent; border:none; color:var(--ink-faint); font-size:16px; cursor:pointer; padding:2px 6px; border-radius:4px; }
   .row-del-btn:hover { color:var(--behind); background:rgba(214,85,62,0.08); }
 
-  .page-search-wrap { max-width:1240px; margin:0 auto; padding: 16px 40px 0; }
+  .page-search-wrap { max-width:1240px; margin:0 auto; padding: 16px 40px 0; display:flex; gap:12px; align-items:center; }
+  .page-search-wrap .page-search { flex: 1; }
+  .week-nav { display:flex; gap:6px; flex-shrink:0; }
+  .wn-btn {
+    background: var(--bg-card); color: var(--ink);
+    border: 1px solid var(--rule); border-radius: 8px;
+    padding: 8px 12px; font-family:'Manrope',sans-serif; font-size:12px; font-weight:600;
+    cursor:pointer; transition: background 0.12s, border-color 0.12s;
+  }
+  .wn-btn:hover { background: var(--clay); color: white; border-color: var(--clay); }
+  @media (max-width:600px) { .wn-btn { padding: 6px 10px; font-size: 11px; } }
   .page-search { width:100%; padding:10px 14px; border:1px solid var(--rule); border-radius:8px; background:var(--bg-card); font-family:'Manrope',sans-serif; font-size:14px; color:var(--ink); }
   .page-search:focus { outline:none; border-color:var(--clay); box-shadow:0 0 0 2px rgba(184,58,58,0.12); }
   @media (max-width:600px) { .page-search-wrap { padding:10px 12px 0; } .page-search { font-size:13px; padding:8px 12px; } }
@@ -1559,7 +1576,13 @@
 
 <!-- ============ WEEK VIEW ============ -->
 <div class="tab-content active" id="tab-weeks">
-  <div class="page-search-wrap"><input type="search" id="weeks-search" class="page-search" placeholder="Search tasks…"></div>
+  <div class="page-search-wrap">
+    <input type="search" id="weeks-search" class="page-search" placeholder="Search tasks…">
+    <div class="week-nav">
+      <button onclick="scrollWeek(-1)" class="wn-btn" title="Previous week">↑ Prev</button>
+      <button onclick="scrollWeek(1)" class="wn-btn" title="Next week">Next ↓</button>
+    </div>
+  </div>
   <main id="weeks-container"><div class="initial-loading">Loading…</div></main>
 </div>
 
@@ -3296,6 +3319,24 @@ function renderActive() {
   else if (active === 'guests') renderGuests();
   else if (active === 'tables') renderTables();
   else if (active === 'vendors') renderVendors();
+}
+
+function scrollWeek(direction) {
+  // Switch to week view if needed
+  const wt = document.querySelector('.tab-btn[data-tab="weeks"]');
+  if (wt && !wt.classList.contains('active')) wt.click();
+  setTimeout(() => {
+    const sections = [...document.querySelectorAll('#weeks-container .week')];
+    if (!sections.length) return;
+    // Find topmost visible section
+    const topOffset = 200;
+    let currentIdx = 0;
+    for (let i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top <= topOffset + 5) currentIdx = i;
+    }
+    const newIdx = Math.max(0, Math.min(sections.length - 1, currentIdx + direction));
+    sections[newIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 60);
 }
 
 function jumpToToday() {
