@@ -306,7 +306,22 @@
     border-bottom: 2px solid var(--ink);
     margin-bottom: 16px;
     position: relative;
+    cursor: pointer;
+    user-select: none;
   }
+  .week-header:hover { background: rgba(184,58,58,0.03); }
+  .week-caret {
+    position: absolute; top: 8px; right: 8px;
+    font-size: 14px; color: var(--ink-faint);
+    transition: transform 0.2s;
+  }
+  .week.is-collapsed .week-caret { transform: rotate(-90deg); }
+  .week.is-collapsed .week-tasks { display: none; }
+  .week.is-collapsed { opacity: 0.7; }
+  .week.is-collapsed .week-header { margin-bottom: 0; border-bottom: 1px solid var(--rule); padding-bottom: 8px; }
+  .week.is-collapsed .week-num { font-size: 20px; margin-bottom: 2px; }
+  .week.is-collapsed h2 { font-size: 12px; line-height: 1.2; }
+  .week-empty-hint { color: var(--ink-faint); font-style: italic; margin-left: 10px; font-size: 11px; }
   .week-num {
     font-family: 'Fraunces', serif;
     font-size: 32px;
