@@ -2111,6 +2111,14 @@ async function initApp() {
     updateSyncStatus('saved');
   }
   setInterval(refreshFromCloud, 20000);
+  // On initial load, anchor scroll on the current week (Time-Machine style)
+  setTimeout(() => {
+    const cw = currentWeekId();
+    if (cw) {
+      const sec = document.getElementById(cw);
+      if (sec) sec.scrollIntoView({ behavior: 'auto', block: 'start' });
+    }
+  }, 250);
 }
 
 // ============================================================
